@@ -4,14 +4,14 @@ import '../styles/repository.scss';
 
 //https://api.github.com/users/Bignotto/repos
 
-const repository = {
-  name: 'James',
-  description: 'James is a reporting robot.',
-  link: 'https://github.com/bignotto/james',
-};
+interface Repository {
+  name: string;
+  description: string;
+  html_url: string;
+}
 
 export function RepositoryList() {
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState<Repository[]>([]);
 
   useEffect(() => {
     fetch('https://api.github.com/users/Bignotto/repos')
@@ -27,11 +27,7 @@ export function RepositoryList() {
           return (
             <RepositoryItem
               key={item.name}
-              repository={{
-                name: item.name,
-                description: item.description,
-                link: item.html_url,
-              }}
+              repository={item}
             />
           );
         })}
